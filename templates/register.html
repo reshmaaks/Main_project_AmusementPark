@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Page </title>
+  <!-- Font Icon -->
+<link rel="stylesheet" href="{% static 'reg/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+<!-- Main css -->
+<link rel="stylesheet" href="{% static 'reg/css/style.css' %}">
+
+<h1  style="color:rgb(255, 254, 254)"><center>Dreamland<span style="color:rgb(105, 220, 116)">Park</center></span></h1>
+</head>
+<body style= "background-image: url('../static/images/R.jfif');" alt=""> 
+    
+  <div class="main">
+    <section class="signup">
+    
+        <!--<img src="images/R.jfif" alt="">--> 
+        <div class="container">
+            <div class="signup-content">
+               <form onsubmit ="return unameValidation()  && fnameValidation()  && lnameValidation()  && emailValidation()  && phoneValidation() && passwordValidation() && cpasswordValidation()" action="{% url 'register.html' %}" method="POST" id="signup-form" class="signup-form">
+                {% include 'alert.html' %}
+                    {% csrf_token %}
+                    <h2 class="form-title">Create account</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-input" name="username"  placeholder="User Name"  title="The name should begin with capital letter Followed by uppercase or lowercase" class="form-control" placeholder="Enter your user name" onkeyup='unameValidation(this)' required/>
+                        <span class="error-msg" id="uname"> </span><br>
+                    </div>
+                     <div class="form-group">
+                        <input type="text" class="form-input" name="first_name" id="fname" placeholder="First Name" title="The name should begin with capital letter Followed by uppercase or lowercase" class="form-control" placeholder=" first name"  onkeyup='fnameValidation(this)'required/>
+                        <span class="error-msg" id="fname1"> </span><br>
+                    </div>
+                     <div class="form-group">
+                        <input type="text" class="form-input" name="last_name" id="lname" title="The name should begin with capital letter Followed by uppercase or lowercase" class="form-control" placeholder="Enter your last name" onkeyup='lnameValidation(this)'  required/>
+                        <span class="error-msg" id="lname1"> </span><br>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"    required style="width:100%;" placeholder="Enter your email" onkeyup='emailValidation(this)' required/>
+                        <span class="error-msg" id="email1"> </span><br>
+                    </div>
+                
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="phone"  placeholder="Phone Number"   class="form-control" placeholder=" first name" onkeyup='phoneValidation(this)' required/>
+                            <span class="error-msg" id="contact"> </span><br>
+                        </div>
+                    <div class="form-group">
+                        <input type="password" class="form-input" name="password" id="pass1"  placeholder="Password" onkeyup='passwordValidation(this)' required/>
+                        
+                       <span class="error-msg" id="password"></span><br>
+                    </div>
+                    <div class="form-group">
+                        
+                    <input type="password" class="form-input" name="cpassword" id="pass2"  placeholder="Repeat your password" onkeyup='cpasswordValidation(this)' required/>
+                    
+                    <span class="error-msg" id="confirmpassword"></span><br>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"required />
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                    </div>
+                    
+                </form>
+                
+                <p class="loginhere">
+                    Have already an account ? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                </p>
+            </div>
+        </div>
+    </section>
+   
+
+</div>
+ <!-- JS -->
+ <script src="{% static 'reg/vendor/jquery/jquery.min.js' %}"></script>
+ <script src="{% static 'reg/js/main.js' %}"></script>
+
+
+
+<script type="text/javascript">
+    
+ function unameValidation(inputTxt){
+    
+    var regx = /^[a-zA-Z]+$/;
+    var textField = document.getElementById("uname");
+
+    if(inputTxt.value != '' ){
+
+        if(inputTxt.value.length >= 3){
+
+            if(inputTxt.value.match(regx)){
+                textField.textContent = '';
+                textField.style.color = "green";
+
+            }else{
+                textField.textContent = 'only characters allowded';
+                textField.style.color = "red";
+            }
+        }else{
+            textField.textContent = 'your input mut me more than two chracters';
+            textField.style.color = "red";
+        }
+    }else{
+        textField.textContent = 'your input is empty';
+
+        textField.style.color = "red";
+    }
+}
+
+    function fnameValidation(inputTxt){
+    
+        var regx = /^[a-zA-Z]+$/;
+        var textField = document.getElementById("fname1");
+    
+        if(inputTxt.value != '' ){
+    
+            if(inputTxt.value.length >= 2){
+    
+                if(inputTxt.value.match(regx)){
+                    textField.textContent = '';
+                    textField.style.color = "green";
+    
+                }else{
+                    textField.textContent = 'only characters allowded';
+                    textField.style.color = "red";
+                }
+            }else{
+                textField.textContent = 'your input mut me more than two chracters';
+                textField.style.color = "red";
+            }
+        }else{
+            textField.textContent = 'your input is empty';
+    
+            textField.style.color = "red";
+        }
+    }
+    
+    function lnameValidation(inputTxt){
+    
+        var regx = /^[a-zA-Z  ]+$/;
+        var textField = document.getElementById("lname1");
+    
+        if(inputTxt.value != '' ){
+    
+            if(inputTxt.value.length >= 1){
+    
+                if(inputTxt.value.match(regx)){
+                    textField.textContent = '';
+                    textField.style.color = "green";
+    
+                }else{
+                    textField.textContent = 'only characters allowded';
+                    textField.style.color = "red";
+                }
+            }else{
+                textField.textContent = 'your input mut me more than two chracters';
+                textField.style.color = "red";
+            }
+        }else{
+            textField.textContent = 'your input is empty';
+            textField.style.color = "red";
+        }
+    }
+    
+    
+    
+  
+function emailValidation(inputTxt){
+    // ^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$
+    var regx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    var textField = document.getElementById("email1");
+
+    if(inputTxt.value != '' ){
+        if(inputTxt.value.match(regx)){
+            textField.textContent = '';
+            textField.style.color = "green";
+        }else{
+            textField.textContent = 'email is not valid!!!';
+            textField.style.color = "red";
+        }
+    }else{
+        textField.textContent = 'your input is empty';
+        textField.style.color = "red";
+    }
+}
+
+    
+function phoneValidation(inputTxt){
+
+var regx = /^[6-9][0-9]{9}$/;
+var textField = document.getElementById("contact");
+
+if(inputTxt.value != '' ){
+    if(inputTxt.value.match(regx)){
+        textField.textContent = '';
+        textField.style.color = "green";
+        }else{
+            textField.textContent = '**not valid phone number';
+            textField.style.color = "red";
+        }
+}else{
+    textField.textContent = 'your input is empty';
+    textField.style.color = "red";
+}
+}
+
+    
+    
+function passwordValidation(inputTxt){
+    
+        var regx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+        var textField = document.getElementById("password");
+    
+        if(inputTxt.value != '' ){
+                if(inputTxt.value.match(regx)){
+                    textField.textContent = '';
+                    textField.style.color = "green";
+    
+                }else{
+                    textField.textContent = 'Must contain at least one number and one uppercase and lowercase letter and aleast 5 characters';
+                    textField.style.color = "red";
+                }
+        }else{
+            textField.textContent = 'your input is empty';
+            textField.style.color = "red";
+        }
+    }
+    
+    
+    function cpasswordValidation(inputTxt){
+    
+        var regx =  document.getElementById("pass1").value;
+        var regy =  document.getElementById("pass2").value;
+        var textField = document.getElementById("confirmpassword");
+        var textField1 = document.getElementById("password");
+    
+        if(inputTxt.value != '' ){
+                if(regx == regy){
+                    textField.textContent = '';
+                    textField.style.color = "green";
+    
+                }else{
+                    textField.textContent = 'not match';
+                    textField.style.color = "red";
+                }
+            }else{
+                textField.textContent = '';
+                textField.style.color = "red";
+            }
+    }
+    
+      </script>
+
+{% endblock %}
+</body>
+</html>

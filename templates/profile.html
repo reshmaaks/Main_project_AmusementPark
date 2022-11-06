@@ -1,0 +1,182 @@
+{% load static%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+
+    <!-- FontAwesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body style= "background-image: url('../static/images/Amuse1.jpg');">
+    <!-- Navbar top -->
+    <div class="navbar-top">
+        <div class="title">
+            <h1>Profile</h1>
+        </div>
+
+        <!-- Navbar -->
+        <ul>
+            <!-- <li>
+                <a href="#message">
+                    <span class="icon-count">29</span>
+                    <i class="fa fa-envelope fa-2x"></i>
+                </a>
+            </li> -->
+            <!-- <li>
+                <a href="#notification">
+                    <span class="icon-count">59</span>
+                    <i class="fa fa-bell fa-2x"></i>
+                </a>
+            </li> -->
+            <li>
+                <a href="{% url 'index.html' %}">
+                    <i class="fa fa-sign-out-alt fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- End -->
+    </div>
+    <!-- End -->
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+        <div class="profile">
+            <!-- <img src="https://i7.pngguru.com/preview/324/23/778/user-system-administrator-computer-icons-scalable-vector-graphics-clip-art-admin-cliparts.jpg"  alt="" width="100" height="100"> -->
+            <img src="{{i.profile.url}}"  alt="" width="100" height="100">
+            <div class="img rounded d-flex align-items-end" >
+                <img src="{{i.profile.url}}" alt=""/>
+            </div>
+
+            <div class="name">
+                {{user.username}}
+            </div>
+            <!-- <div class="job">
+                Web Developer
+            </div>-->
+        </div> 
+
+        <div class="sidenav-url">
+            <div class="url">
+                <a href="{% url 'profile' %}"class="active">Profile</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings">Book Now</a>
+                <hr align="center">
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main">
+        <h2>IDENTITY</h2>
+        <img class="round-circle" src="{{ user.profile.profile.url }}">
+        <!-- <img class="round-circle" src="{{ user.profile.profile.url }}"> -->
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <form onsubmit action="{% url 'profile' %}" method="POST" enctype="multipart/form-data" >
+                    {% include 'alert.html' %}
+                    {% csrf_token %}
+                   <!-- <fieldset>
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+                </fieldset> -->
+                <!-- <table>
+                    <tbody> -->
+                        <tr>
+                            <td>Username</td>
+                            <td>:</td>
+                            <input type="text" class="form-control" id="first_name" value="{{user.username}}"
+                            disabled>
+                            <!-- <td><input tpye="text" {{user.username}}</td> -->
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <td>:</td>
+                                <input type="text" class="form-control" id="first_name" value="{{user.first_name}}"
+                                    disabled>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                                <label for="first_name">Last Name</label>
+                                <td>:</td>
+                                <input type="text" class="form-control" id="first_name" value="{{user.last_name}}"
+                                    disabled>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                                <label for="first_name"> Email</label>
+                                <td>:</td>
+                                <input type="text" class="form-control" id="first_name" value="{{user.email}}"
+                                    disabled>
+                            </div>
+                        </tr>
+                        
+                        <tr>
+                            <div class="form-group">
+                                <label for="first_name">Contact</label>
+                                <td>:</td>
+                                <input type="text" class="form-control" id="first_name" value="{{user.phone}}"
+                                    disabled>
+                            </div>
+                        </tr>
+                       
+                    
+                    </tbody>
+                </table>
+                <button class="btn" name="submit"  type="submit"  > Update </button>
+
+            </div>
+        </div>
+    </form>
+        <!-- <h2>SOCIAL MEDIA</h2>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <div class="social-media">
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-invision fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-snapchat fa-stack-1x fa-inverse"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- End -->
+</body>
+</html>
