@@ -14,7 +14,7 @@ class RideAdmin(admin.ModelAdmin):
 admin.site.register(Rides,RideAdmin)
 # admin.site.register(Group)
 admin.site.register(Account)
-admin.site.register(Profile)
+admin.site.register(Profile_update)
 admin.site.unregister(Group)
 
 

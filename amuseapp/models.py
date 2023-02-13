@@ -110,9 +110,9 @@ class Account(AbstractBaseUser,PermissionsMixin):
 
 
 
-class Profile(models.Model):
-    user=models.ForeignKey(Account, on_delete=models.CASCADE)
-    image=models.ImageField(default='default.jpg', upload_to='profile')
+class Profile_update(models.Model):
+    email=models.OneToOneField(Account, on_delete=models.CASCADE)
+    image=models.ImageField(default='default.png', upload_to='profile')
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username}-Profile'
 

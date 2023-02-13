@@ -4,7 +4,7 @@ from .models import Rides
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from .models import Account, Profile
+from .models import Account, Profile_update
 from django.contrib.auth import login
 from django.contrib import auth
 from .forms import userupdateform,profileUpdateForm
@@ -16,6 +16,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.views.decorators.cache import cache_control 
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     obj=Rides.objects.all()
@@ -276,25 +277,31 @@ def activate(request, uidb64, token):
         return redirect('register.html')
 
 
+
 def profile(request):
-    # if request.method == 'POST':
+    
     if request.user.is_authenticated:
-        u_form=userupdateform(request.POST,instance=request.user)
-        p_form=profileUpdateForm(request.POST, request.FILES)
+  
+     return render(request,'profile.html')
+    else:
+        return render(request,'login.html')
+
+def profile_update(request):
+    if request.method =='POST':
+        u_form  = userupdateform(request.POST,instance=request.user)
+        p_form = profileUpdateForm(request.POST, request.FILES, instance=request.user)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, 'Congratulations! Your account ha been Updated.')
             return redirect('profile')
+    
     else:
-         u_form=userupdateform(instance=Account.objects.get(email=request.session.get('email')))
-         p_form= profileUpdateForm(instance= Profile.objects.get(user=Account.objects.get(email=request.session.get('email')).id))
-    context = {
-            'u_form':u_form,
-            'p_form':p_form
-        }
-    return render(request,'profile.html',context)
-    # else:
-    #     return render(request,'login.html')
+       u_form  = userupdateform(instance=request.user)
+    p_form = profileUpdateForm(instance=request.user)
+    
+    context={
+        'u_form' : u_form,
+        'p_form' : p_form,
 
-
+    }
+    return render(request,'profileupdate.html',context)
