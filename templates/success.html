@@ -1,0 +1,101 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    $(function(){
+        var dtToday = new Date();
+     
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        
+        var maxDate = year + '-' + month + '-' + day;
+        // alert(maxDate);
+        $('#inputdate').attr('min', maxDate);
+    });
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+
+    <!-- FontAwesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body style= "background-image: url('../static/images/amuse2.jpg');"alt=""> 
+    <!-- Navbar top -->
+    <div class="navbar-top">
+        <div class="title">
+            <h1>Dreamland Park</h1>
+        </div>
+
+        <!-- Navbar -->
+        <ul>
+            <li>
+                <a href="{% url 'index' %} "class="nav-link">Home</a>
+                    
+            </li>
+            <li class="nav-item"><a href='#about' class="nav-link">About</a></li>
+	          <li class="nav-item"><a href='#ride' class="nav-link">Rides</a></li>
+	          
+	          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+              
+              <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+              
+            <li>
+                <a href="{% url 'profile' %} ">
+                    <i class="fa fa-sign-out-alt fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- End -->
+    </div>
+    <!-- End -->
+
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+      <div class="profile">
+          <img src="https://th.bing.com/th/id/OIP.3xgd-aQ4EDx5dx52FWvF3QHaH_?pid=ImgDet&w=1000&h=1080&rs=1" alt="" width="100" height="100">
+
+          <div class="name">
+          {{user.username }}
+          </div>
+      </div>
+
+      <div class="sidenav-url">
+          <div class="url">
+              <a href="{% url 'profile' %} " class="active">Profile</a>
+              <hr align="center">
+          </div>
+          <div class="url">
+              <a href="{% url 'booknow' %}">Book Now</a>
+              <hr align="center">
+          </div>
+          <div class="url">
+              <a href="{% url 'review' %}">Reviews</a>
+              <hr align="center">
+          </div>
+          <div class="url">
+              <a href="{% url 'service' %}">My Bookings</a>
+              <hr align="center">
+          </div>
+      </div>
+  </div>
+  <!-- End -->
+
+  
+
+
+  {% if success %}
+  Amount paid.
+  {% endif %}

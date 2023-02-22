@@ -1,5 +1,6 @@
+{% load widget_tweaks %}
 {% load static %}
-{% load crispy_forms_tags %}
+
 
 
 <!doctype html>
@@ -32,7 +33,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
 
-    <link rel="stylesheet" href="{% static 'profile/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '../profile/css/style.css' %}">
     <title>Profile Page</title>
 </head>
 
@@ -51,7 +52,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="{% url 'index.html' %} ">Dashboard <span
+                        <a class="nav-link text-white" href="{% url 'index' %} ">Dashboard <span
                                 class="sr-only">(current)</span></a>
                     </li>
                 </ul>
@@ -89,8 +90,22 @@
                                 <hr>
                                 <form method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    {{ u_form | crispy }}
-                                    {{ p_form | crispy }}
+                                    
+                                    <b style="color: blue; margin-left: 1px">username</b>
+                                    {% render_field u_form.username class="form-control" name="username" type="text"  onkeyup='unameValidation(this)'  %}
+                                    <span class="error-msg" id="username"> </span><br>
+                                    <b style="color: blue; margin-left: 1px">FirstName</b>
+                                    {% render_field u_form.first_name class="form-control"  onkeyup='fnameValidation(this)' %}
+                                    <span class="error-msg" id="first_name"> </span><br>
+                                    <b style="color: blue; margin-left: 1px">Last Name</b>
+                                    {% render_field u_form.last_name class="form-control" onkeyup='lnameValidation(this)' %}
+                                    <span class="error-msg" id="last_name"> </span><br>
+                                    <b style="color: blue; margin-left: 1px">Contact</b>
+                                    {% render_field u_form.phone class="form-control" onkeyup='phoneValidation(this)'  %}
+                                    <span class="error-msg" id="phone"> </span><br>  
+                                    <b style="color: blue; margin-left: 1px">Email</b>
+                                    {% render_field u_form.email class="form-control"  onkeyup='emailValidation(this)'  %}
+                                    <span class="error-msg" id="email"> </span><br> 
                                    
                                     <input class="btn btn-info" type="submit" value="update">
                                 </form>
@@ -127,6 +142,136 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     -->
+    
 </body>
+
+   
+<script type="text/javascript">
+    
+ function unameValidation(inputTxt){
+    
+    var regx = /^[a-zA-Z]+$/;
+    var textField = document.getElementById("username");
+
+    if(inputTxt.value != '' ){
+
+        if(inputTxt.value.length >= 3){
+
+            if(inputTxt.value.match(regx)){
+                textField.textContent = '';
+                textField.style.color = "green";
+
+            }else{
+                textField.textContent = 'only characters allowded';
+                textField.style.color = "red";
+            }
+        }else{
+            textField.textContent = 'your input mut me more than two chracters';
+            textField.style.color = "red";
+        }
+    }else{
+        textField.textContent = 'your input is empty';
+
+        textField.style.color = "red";
+    }
+}
+
+    function fnameValidation(inputTxt){
+    
+        var regx = /^[a-zA-Z]+$/;
+        var textField = document.getElementById("first_name");
+    
+        if(inputTxt.value != '' ){
+    
+            if(inputTxt.value.length >= 2){
+    
+                if(inputTxt.value.match(regx)){
+                    textField.textContent = '';
+                    textField.style.color = "green";
+    
+                }else{
+                    textField.textContent = 'only characters allowded';
+                    textField.style.color = "red";
+                }
+            }else{
+                textField.textContent = 'your input mut me more than two chracters';
+                textField.style.color = "red";
+            }
+        }else{
+            textField.textContent = 'your input is empty';
+    
+            textField.style.color = "red";
+        }
+    }
+    
+    function lnameValidation(inputTxt){
+    
+        var regx = /^[a-zA-Z  ]+$/;
+        var textField = document.getElementById("last_name");
+    
+        if(inputTxt.value != '' ){
+    
+            if(inputTxt.value.length >= 1){
+    
+                if(inputTxt.value.match(regx)){
+                    textField.textContent = '';
+                    textField.style.color = "green";
+    
+                }else{
+                    textField.textContent = 'only characters allowded';
+                    textField.style.color = "red";
+                }
+            }else{
+                textField.textContent = 'your input mut me more than two chracters';
+                textField.style.color = "red";
+            }
+        }else{
+            textField.textContent = 'your input is empty';
+            textField.style.color = "red";
+        }
+    }
+    
+    
+    
+    function emailValidation(inputTxt){
+    // ^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$
+    var regx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    var textField = document.getElementById("email");
+
+    if(inputTxt.value != '' ){
+        if(inputTxt.value.match(regx)){
+            textField.textContent = '';
+            textField.style.color = "green";
+        }else{
+            textField.textContent = 'email is not valid!!!';
+            textField.style.color = "red";
+        }
+    }else{
+        textField.textContent = 'your input is empty';
+        textField.style.color = "red";
+    }
+}
+    
+function phoneValidation(inputTxt){
+
+var regx = /^[6-9][0-9]{9}$/;
+var textField = document.getElementById("phone");
+
+if(inputTxt.value != '' ){
+    if(inputTxt.value.match(regx)){
+        textField.textContent = '';
+        textField.style.color = "green";
+        }else{
+            textField.textContent = '**not valid phone number';
+            textField.style.color = "red";
+        }
+}else{
+    textField.textContent = 'your input is empty';
+    textField.style.color = "red";
+}
+}
+
+    
+  </script>
 
 </html>

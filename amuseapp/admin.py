@@ -10,11 +10,13 @@ class RideAdmin(admin.ModelAdmin):
 
 
     
-    # prepopulated_fields={'slug':('name',)}
 admin.site.register(Rides,RideAdmin)
-# admin.site.register(Group)
 admin.site.register(Account)
-admin.site.register(Profile_update)
+admin.site.register(Adultpackage)
+admin.site.register(Childpackage)
+admin.site.register(booking)
+admin.site.register(amount)
+
 admin.site.unregister(Group)
 
 

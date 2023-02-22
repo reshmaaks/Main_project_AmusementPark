@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 
+
 # from django.contrib.auth import get_user_model
 
 # User=get_user_model()
@@ -12,7 +13,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,Permiss
 class Rides(models.Model):
     name=models.CharField(max_length=250,unique=True)
     #slug=models.SlugField(max_length=250,unique=True)
-    description=models.TextField(blank=True)
+    # description=models.TextField(blank=True)
     # price=models.DecimalField(max_digits=10,decimal_places=2,default=True)
     # category=models.ForeignKey(Category,on_delete=models.CASCADE)
     # subcategory=models.ForeignKey(Subcategory,on_delete=models.CASCADE)
@@ -83,6 +84,7 @@ class Account(AbstractBaseUser,PermissionsMixin):
     last_login      = models.DateTimeField(auto_now_add=True)
     is_staff        = models.BooleanField(default=False)
     is_admin        =models.BooleanField(default=False)
+    is_active        =models.BooleanField(default=False)
     # is_superuser   = models.BooleanField(default=False)
 
     objects = MyAccountManager()
@@ -110,9 +112,63 @@ class Account(AbstractBaseUser,PermissionsMixin):
 
 
 
-class Profile_update(models.Model):
-    email=models.OneToOneField(Account, on_delete=models.CASCADE)
-    image=models.ImageField(default='default.png', upload_to='profile')
-    def __str__(self):
-        return f'{self.user.username}-Profile'
 
+class Adultpackage(models.Model):
+    p1_id=models.AutoField(primary_key=True)
+    name=models.CharField(max_length=250,unique=True)
+    description=models.TextField(blank=True)
+    price=models.BigIntegerField(default=0)
+    available=models.BooleanField(default=True)
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.name)
+
+
+class Childpackage(models.Model):
+    p2_id=models.AutoField(primary_key=True)
+    name=models.CharField(max_length=250,unique=True)
+    description=models.TextField(blank=True)
+    price=models.BigIntegerField(default=0)
+    available=models.BooleanField(default=True)
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.name)        
+
+
+class booking(models.Model):
+    user =models.ForeignKey(Account, on_delete=models.SET_NULL,null=True)
+    p1_id=models.ForeignKey(Adultpackage,on_delete=models.CASCADE,null=True,blank=True)
+    p2_id=models.ForeignKey(Childpackage,on_delete=models.CASCADE,null=True,blank=True)
+    # package2_name=models.ForeignKey(package2,on_delete=models.CASCADE,null=True,blank=True)
+    date=models.DateField(auto_now = False)
+    count_adult=models.BigIntegerField(default=1)
+    count_child=models.BigIntegerField(default=1,null=True)
+    total_price=models.BigIntegerField(default=0)
+    
+    # child_count=models.PositiveIntegerField(default=1)
+    # meals_name=models.ForeignKey(package,on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.user)
+
+class Reviews(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank=True)
+    review = models.CharField(max_length=500, blank=True)
+    # image= models.ImageField(upload_to='reviews/',blank=True,default=True)
+    star =models.IntegerField(default=False)
+
+
+    def _str_(self):
+        return str(self.user)
+
+
+
+class amount(models.Model):
+    # user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    amount = models.BigIntegerField(default=0)
+
+
+    def __str__(self):
+        return str(self.amount)

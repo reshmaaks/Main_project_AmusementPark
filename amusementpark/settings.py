@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # 'adminlte3_theme',
     'django.contrib.auth',
     'jazzmin',
+    'widget_tweaks',
     'amuseapp',
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'amusementpark.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'amusepark',
+        'NAME': 'minipro',
         'USER':'postgres',
         'PASSWORD':'1234',
         'HOST':'127.0.0.1',

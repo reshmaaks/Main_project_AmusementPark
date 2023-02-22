@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dreamland park</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+
+    
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="index.html">Dreamland<span>Park</span></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item active"><a href={% url 'index' %} class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href='#about' class="nav-link">About</a></li>
+	          <li class="nav-item"><a href='#ride' class="nav-link">Rides</a></li>
+	          <li class="nav-item"><a href="pricing.html" class="nav-link">Ticket Details</a></li>
+	           <!-- <li class="nav-item"><a href="blog-single.html" class="nav-link">Blog</a></li>  -->
+	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+<!--          
+             <!-- {% if request.session.username %}  -->
+			<li class="nav-item"><a href="#" class="nav-link">welcome {{request.session.username}}</a></li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#"> <i class='fas fa-user-circle' style='font-size:20px'></i> Profile</a>
+					<a class="dropdown-item" href="#"><i class='fas fa-shopping-bag' style='font-size:20px'></i> Orders</a>
+					<a class="dropdown-item" href="{% url 'change_password' %}"><i class="fa fa-key" aria-hidden="true"></i>Change Password</a>
+					<a class="dropdown-item" href="{% url 'logout' %} "><i class='fa fa-sign-out' style='font-size:20px'></i> Logout</a>
+			</li>
+
+			<!-- {% else %}
+			<li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+			{% endif %}  -->
+
+
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+    
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url('static/images/bg3.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+          <div class="col-lg-8 ftco-animate">
+          	<div class="text w-100 text-center mb-md-5 pb-md-5">
+	            <h1 class="mb-4">DREAMLAND PARK</h1>
+	            <p style="font-size: 18px;">Dreamland the best fun amusement park, warmly welcome everyone to enjoy, explore and enliven yourself with Rides. </p>
+	            
+	            	
+	            		
+	            	</div>
+	            	<div class="heading-title ml-5">
+		            	
+	            	</div>
+	            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <section class="ftco-section ftco-no-pt bg-light">
+    	<div class="container">
+    		<div class="row no-gutters">
+    			<div class="col-md-12	featured-top">
+    				<div class="row no-gutters">
+	  					<div class="col-md-4 d-flex align-items-center">
+	  						
+	  					</div>
+	  					<div class="col-md-8 d-flex align-items-center">
+	  						<div class="services-wrap rounded-right w-100">
+	  							<h3 class="heading-section mb-4">Crank Up Your Thrillometer With  Activities</h3>
+	  							<div class="row d-flex mb-4">
+					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+					            <div class="services w-100 text-center">
+				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+				              	
+					            </div>      
+					          </div>
+					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+					            <div class="services w-100 text-center">
+				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+				              	
+					            </div>      
+					          </div>
+					          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+					            <div class="services w-100 text-center">
+				              	      
+					          </div>
+					        </div>
+					        <p><a href="#" class="btn btn-primary py-3 px-4">BOOK NOW</a></p>
+	  						</div>
+	  					</div>
+	  				</div>
+				</div>
+  		</div>
+    </section>
+
+
+    <section class="ftco-section ftco-no-pt bg-light" id='ride'>
+    	<div class="container">
+    		<div class="row justify-content-center">
+          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+          	<span class="subheading">In the midst of beautiful water scapes,mountains and mother nature, is a perfect place for you to rejoice, relax and re-energize you – the Dreamland Amusement park. </span>
+            <h2 class="mb-2">----------------------</h2>
+          </div>
+        </div>
+		
+    		<div class="row">
+    			<div class="col-md-12">
+    				<div class="carousel-car owl-carousel">
+						{% for i in result %}
+    					<div class="item">
+    						<div class="car-wrap rounded ftco-animate">
+		    					<div class="img rounded d-flex align-items-end" >
+									<img src="{{i.image.url}}" alt=""/>
+		    					</div>
+		    					<div class="text">
+		    						<h2 class="mb-0"><a href="#">{{i.name}}</a></h2>
+		    						<div class="d-flex mb-3">
+			    						<!-- <span class="cat">Cheverolet</span> -->
+			    						<p class="price ml-auto">{{i.price}}</p>
+		    						</div>
+		    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    					</div>
+		    				</div>
+    					</div>
+						{% endfor %}
+    					<!--<div class="item">
+    						<div class="car-wrap rounded ftco-animate">
+		    					<div class="img rounded d-flex align-items-end" style="background-image: url('static/images/img-2.jpg');">
+		    					</div>
+		    					<div class="text">
+		    						<h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+		    						<div class="d-flex mb-3">
+			    						<span class="cat">Cheverolet</span>
+			    						<p class="price ml-auto">$500 <span>/day</span></p>
+		    						</div>
+		    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    					</div>
+		    				</div>
+    					</div>
+    					<div class="item">
+    						<div class="car-wrap rounded ftco-animate">
+		    					<div class="img rounded d-flex align-items-end" style="background-image: url('static/images/img-3.jpg');">
+		    					</div>
+		    					<div class="text">
+		    						<h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+		    						<div class="d-flex mb-3">
+			    						<span class="cat">Cheverolet</span>
+			    						<p class="price ml-auto">$500 <span>/day</span></p>
+		    						</div>
+		    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    					</div>
+		    				</div>
+    					</div>
+    					<div class="item">
+    						<div class="car-wrap rounded ftco-animate">
+		    					<div class="img rounded d-flex align-items-end" style="background-image: url('static/images/img-4.jpg');">
+		    					</div>
+		    					<div class="text">
+		    						<h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+		    						<div class="d-flex mb-3">
+			    						<span class="cat">Cheverolet</span>
+			    						<p class="price ml-auto">$500 <span>/day</span></p>
+		    						</div>
+		    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+		    					</div>
+		    				</div>
+    					</div>-->
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
+    <section class="ftco-section ftco-about" id='about'>
+			<div class="container">
+				<div class="row no-gutters">
+					<div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url('static/images/amuse3.jpg');">
+					</div>
+					<div class="col-md-6 wrap-about ftco-animate">
+	          <div class="heading-section heading-section-white pl-md-5">
+	          	<span class="subheading">About us</span>
+	            <h2 class="mb-4">Welcome</h2>
+
+	            <p>a place where you are welcomed by the refreshing breeze from the valley, recreate and rejoice yourself and feel the wonders hidden between woods and waters. Wondervalley the best fun forest adventure park and amamusement park in the hills of Munnar warmly welcome everyone to enjoy, explore and enliven yourself with nature. Situated in acres of land Wonder Valley offers a wide range of adventurous and fun activities
+
+                <p>The adventure zone is created so that it gives an opportunity to face your fears and it gives the courage to face your problems and challenges and thereby give a new dimension to your life.The amusement park is specially created for those who wish to have fun and relaxation with friends and family. Various rides provide an entertaining mood and re energize your dull mind. It is designed for kids as well as grown ups. You can go back to your childhood through the rides that are arranged here. As a whole the whole set up in wonder valley is specially created for those who demand more. And the memories that you take away from here will be always kept in your memories and always push you to came back again.</p>
+	            <a href="#" class="btn btn-primary py-3 px-4">BOOK NOW</a></p>
+	          </div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2"><a href="#" class="logo">Dreamland <span>Park</span></a></h2>
+              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">Information</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">About</a></li>
+                <li><a href="#" class="py-2 d-block">Rides</a></li>
+                <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
+                <li><a href="#" class="py-2 d-block">Best Pakages </a></li>
+                <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Customer Support</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">FAQ</a></li>
+                <li><a href="#" class="py-2 d-block">Payment Option</a></li>
+                <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
+                <li><a href="#" class="py-2 d-block">How it works</a></li>
+                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved  <i class="icon-heart color-danger" aria-hidden="true"></i> </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+  <script src="{% static 'js/scrollax.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{% static 'js/google-map.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+    
+  </body>
+</html>

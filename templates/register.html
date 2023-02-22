@@ -22,7 +22,7 @@
         <!--<img src="images/R.jfif" alt="">--> 
         <div class="container">
             <div class="signup-content">
-               <form onsubmit ="return unameValidation()  && fnameValidation()  && lnameValidation()  && emailValidation()  && phoneValidation() && passwordValidation() && cpasswordValidation()" action="{% url 'register.html' %}" method="POST" id="signup-form" class="signup-form">
+               <form  onsubmit ="return unameValidation()  && fnameValidation()  && lnameValidation()  && emailValidation()  && phoneValidation() && passwordValidation() && cpasswordValidation()" action="{% url 'register.html' %}" method="POST" id="signup-form" class="signup-form">
                 {% include 'alert.html' %}
                     {% csrf_token %}
                     <h2 class="form-title">Create account</h2>
