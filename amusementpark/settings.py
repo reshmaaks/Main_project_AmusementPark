@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # 'adminlte3_theme',
     'django.contrib.auth',
     'jazzmin',
+    # # 'razorpay',
     'widget_tweaks',
     'amuseapp',
     'django.contrib.admin',
@@ -134,7 +135,8 @@ STATICFILES_ROOT =os.path.join(BASE_DIR,'assets')
 MEDIA_URL='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-
+RAZORPAY_API_KEY ='rzp_test_f2cTF5XBel7XdE'
+RAZORPAY_API_SECRET_KEY='q5EVv91UvQwG167bgMD6txYx'
 
 
 #SMTP Configruation

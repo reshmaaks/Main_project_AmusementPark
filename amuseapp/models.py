@@ -172,3 +172,26 @@ class amount(models.Model):
 
     def __str__(self):
         return str(self.amount)
+
+
+
+class Payment(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    amount = models.FloatField()
+    razorpay_order_id=models.CharField(max_length=100,blank=True,null=True)
+    razorpay_payment_status = models.CharField(max_length=100,blank=True,null=True)
+    razorpay_payment_id = models.CharField(max_length=100,blank=True,null=True)
+    paid = models.BooleanField(default=False)
+
+class Placed_Booking(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    # booking=models.ForeignKey(booking,on_delete=models.CASCADE,null=True,blank=True)
+    p1_id=models.ForeignKey(Adultpackage,on_delete=models.CASCADE,null=True,blank=True)
+    p2_id=models.ForeignKey(Childpackage,on_delete=models.CASCADE,null=True,blank=True)
+    date = models.DateField(auto_now_add=True)
+    payment=models.ForeignKey(Payment,on_delete=models.CASCADE,default="")
+    # @property
+    # def total_price(self):
+    #     return self.product.discounted_price
+
+

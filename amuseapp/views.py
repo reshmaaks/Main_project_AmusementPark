@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
-from .models import Reviews, Rides, amount, booking, Adultpackage, Childpackage
+from .models import Payment, Placed_Booking, Reviews, Rides, amount, booking, Adultpackage, Childpackage
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from .models import Account
@@ -8,6 +8,7 @@ from django.contrib.auth import login
 from django.contrib import auth
 from django.db.models import Q
 from .forms import  BookForm, userupdateform
+from django.views.generic.edit import View
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
@@ -16,6 +17,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.views.decorators.cache import cache_control 
 from django.contrib.auth.decorators import login_required
+import razorpay 
+from django.conf import settings
 def index(request):
     obj=Rides.objects.all()
     review=Reviews.objects.all()
@@ -301,3 +304,58 @@ def Delete(request, id):
         # messages.info(request, "You don't have an active order")
         return render(request,'success.html')
     return redirect('service')
+
+
+class checkout(View):
+    def get(self,request):
+        user = request.user
+        data = booking.objects.filter(user=user)
+        if request.method == 'POST':
+            date=request.POST['date']
+            count1=request.POST['count1']
+            count2=request.POST['count2']
+            form = BookForm(request.POST)
+            p1_id = form.cleaned_data['p1_id']
+            p2_id = form.cleaned_data['p2_id']
+            print(int(p2_id.price)*int(count2))
+            user=request.user,
+            date=date,
+            p1_id=p1_id,
+            p2_id=p2_id,
+            count_adult=count1,
+            count_child=count2,
+            total_price=(int(p1_id.price)*int(count1))+(int(p2_id.price)*int(count2))
+            razoramount=int(total_price*100)
+            client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+            data = { "amount": razoramount, "currency": "INR", "receipt": "order_rcptid_12" }
+            payment = client.order.create(data=data)
+            print(payment)  
+            order_id = payment['id']
+            order_status=payment['status']
+            if order_status == 'created':
+                payment = Payment(
+                    user=user,
+                    amount=total_price,
+                    razorpay_order_id = id,
+                    razorpay_payment_status = order_status
+                )
+                payment.save()
+                
+                
+
+        return render(request, 'checkout.html',{'data':data})
+
+def paymentdone(request):
+    user = request.user
+    id = request.GET.get('id')
+    payment_id=request.GET.get('payment_id')
+    payment=Payment.objects.get(razorpay_order_id=id)
+    payment.paid=True
+    payment.razorpay_payment_id =payment_id
+    payment.save()
+    book=booking.objects.filter(user=user)
+    for b in book:
+        Placed_Booking(user=user,p1_id=b.p1_id,p2_id=b.p2_id,date=b.date,payment=b.payment)
+        b.delete()
+    return redirect("service")    
+

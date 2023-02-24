@@ -1,0 +1,144 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkout Page</title>
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+
+    <!-- FontAwesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body style= "background-image: url('../static/images/amuse2.jpg');"alt=""> 
+<!-- <body> -->
+    <!-- Navbar top -->
+    <div class="navbar-top">
+        <div class="title">
+            <h1>Dreamland Park</h1>
+        </div>
+        <ul>
+            <li>
+                <a href="{% url 'index' %} "class="nav-link">Home</a>
+                    
+            </li>
+            <li class="nav-item"><a href='#about' class="nav-link">About</a></li>
+	          <li class="nav-item"><a href='#ride' class="nav-link">Rides</a></li>
+	          
+	          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+              
+              <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+              
+            <li>
+                <a href="{% url 'profile' %} ">
+                    <i class="fa fa-sign-out-alt fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="card bg-light mb-3">
+          <div class="card-header">
+            <div class="card-body">
+
+                
+                <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <div class="main">
+                    <h2 style="color: rgb(22, 22, 22);">Booking</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fa fa-pen fa-xs edit"></i>
+                
+            <div class="main">
+                <h2 style="color: rgb(33, 31, 31);">Tickets Booking</h2>
+ 
+                {% for i in data %} 
+                <br>
+                    <tr>
+                        <td>date</td>
+                        <td>:</td>
+                        <td>{{ i.date }}</td>
+                    </tr>
+              <br>
+              
+            <tr>
+              <td>Adult</td>
+              <td>:</td>
+              <td>{{ i.count_adult }}</td>
+          </tr>
+          
+          <tr>
+            <td>Child</td>
+            <td>:</td>
+            <td>{{ i.count_child }}</td>
+        </tr>
+        <br>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <br>
+        <tr>
+            <td>Amount</td>
+            <td>:</td>
+            <td>{{ i.total_price }}</td>
+        </tr>
+        <br>
+             {% endfor %}
+              
+              <button id="rzp-button1" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">PAYMENT</button>
+              <!-- <button type="submit" class="btn btn-primary"><a href="{% url 'bookticket' %}" class="btn btn-secondary">Cancel</a></button> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>    
+
+</body>
+{% block payment-gateway %}
+<script>
+
+    var options = {
+                    "key": 'rzp_test_f2cTF5XBel7XdE', // Enter the Key ID generated from the Dashboard
+                    "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "amusementpark",
+                    "description": "Test Transaction",
+
+                    "id": "{{id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (response){
+                        console.log("success")
+                        var form = document.getElementById["form"];
+                        var a = response.razorpay_payment_id;
+                        window.location.href = `http://127.0.0.1:8000/paymentdone?payment_id=`+a
+
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+              };
+                var rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response){
+                        alert(response.error.description);
+                });
+                document.getElementById('rzp-button1').onclick = function(e){
+                    console.log("button click");
+                    rzp1.open();
+                    e.preventDefault();
+                }
+</script>
+
+{% endblock payment-gateway %}
+
+
+</html>
+

@@ -25,6 +25,9 @@ urlpatterns = [
     path('booknow/',views.booknow,name='booknow'),
     path('service/',views.service,name='service'),
     path('Delete/<int:id>/',views.Delete,name='Delete'),
+    path('checkout/',views.checkout.as_view(),name='checkout'),
+    path('paymentdone/',views.paymentdone,name='paymentdone'),
+
 
 
 

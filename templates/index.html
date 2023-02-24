@@ -160,7 +160,11 @@
     <title>Dreamland park</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
@@ -196,7 +200,7 @@
 	          <li class="nav-item active"><a href={% url 'index' %} class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href='#about' class="nav-link">About</a></li>
 	          <li class="nav-item"><a href='#ride' class="nav-link">Rides</a></li>
-	          <!-- <li class="nav-item"><a href="{% url 'bookticket' %}" class="nav-link">Ticket Pricing</a></li> -->
+	          <li class="nav-item"><a href="{% url 'bookticket' %}" class="nav-link">Ticket Pricing</a></li>
 
 	          
 	          <!-- <li class="nav-item"><a href="blog-single.html" class="nav-link">Blog</a></li> -->
@@ -421,7 +425,7 @@
 			</div>
 		</section>
 
-		
+		{% block payment-gateway %} {% endblock payment-gateway %}
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">

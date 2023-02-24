@@ -16,6 +16,9 @@ admin.site.register(Adultpackage)
 admin.site.register(Childpackage)
 admin.site.register(booking)
 admin.site.register(amount)
+admin.site.register(Payment)
+admin.site.register(Placed_Booking)
+
 
 admin.site.unregister(Group)
 
