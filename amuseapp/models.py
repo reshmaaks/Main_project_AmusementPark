@@ -177,11 +177,14 @@ class amount(models.Model):
 
 class Payment(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    amount = models.FloatField()
-    razorpay_order_id=models.CharField(max_length=100,blank=True,null=True)
-    razorpay_payment_status = models.CharField(max_length=100,blank=True,null=True)
-    razorpay_payment_id = models.CharField(max_length=100,blank=True,null=True)
-    paid = models.BooleanField(default=False)
+    payment_id = models.CharField(max_length=100)
+    payment_method = models.CharField(max_length=100)
+    amount_paid = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.payment_id
 
 class Placed_Booking(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)

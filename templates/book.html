@@ -84,10 +84,10 @@
               <a href="{% url 'review' %}">Reviews</a>
               <hr align="center">
           </div>
-          <div class="url">
+          <!-- <div class="url">
               <a href="{% url 'service' %}">My Bookings</a>
               <hr align="center">
-          </div>
+          </div> -->
       </div>
   </div>
   <!-- End -->
@@ -102,6 +102,8 @@
       {% for i in package %}
         <h3 style="color: rgb(0, 0, 0);"><center>Total Amount Rs.{{i.total_price}}</center></h3>
       {% endfor %}
+      <!-- <center><button id="rzp-button1" type="submit" class="btn  btn-outline-success btn-block ">PAYMENT</button></center> -->
+
       <a href="{% url 'checkout' %}" class="alert-link" style="color: rgb(205, 43, 43);"><center>Pay Amount</center></a>
       
 
@@ -124,11 +126,6 @@
                 
             <div class="main">
                 <h2 style="color: rgb(33, 31, 31);">Tickets Booking</h2>
- 
-                                   
-
-              <!-- {{ form.date.label }}
-              {{ form.date }} -->
               <table>
                 <tbody>
                     <tr>

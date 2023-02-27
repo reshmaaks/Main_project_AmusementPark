@@ -1,3 +1,4 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from .models import Payment, Placed_Booking, Reviews, Rides, amount, booking, Adultpackage, Childpackage
@@ -51,7 +52,7 @@ def register(request):
         send_mail(
                 'Please activate your account',
                 message,
-                'dreamlandpark2705@gmail.com',
+                'dreamlandpark521@gmail.com',
                 [email],
                 fail_silently=False,
             )
@@ -322,40 +323,28 @@ class checkout(View):
             date=date,
             p1_id=p1_id,
             p2_id=p2_id,
-            count_adult=count1,
-            count_child=count2,
             total_price=(int(p1_id.price)*int(count1))+(int(p2_id.price)*int(count2))
-            razoramount=int(total_price*100)
-            client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
-            data = { "amount": razoramount, "currency": "INR", "receipt": "order_rcptid_12" }
-            payment = client.order.create(data=data)
-            print(payment)  
-            order_id = payment['id']
-            order_status=payment['status']
-            if order_status == 'created':
-                payment = Payment(
-                    user=user,
-                    amount=total_price,
-                    razorpay_order_id = id,
-                    razorpay_payment_status = order_status
-                )
-                payment.save()
+            data = { "amount": total_price }
+            
                 
-                
+        return render(request, 'checkout.html',{'data':data})  
 
-        return render(request, 'checkout.html',{'data':data})
+def payments(request):
+    body = json.loads(request.body)
+    print(body)
+    book = booking.objects.get(
+        user=request.user, id =body['orderID'])
+    print(body)
 
-def paymentdone(request):
-    user = request.user
-    id = request.GET.get('id')
-    payment_id=request.GET.get('payment_id')
-    payment=Payment.objects.get(razorpay_order_id=id)
-    payment.paid=True
-    payment.razorpay_payment_id =payment_id
+    payment = Payment(
+        user=request.user,
+        payment_id=body['transID'],
+        payment_method=body['payment_method'],
+        amount_paid=book.total_price,
+        status=body['status'],
+    )
     payment.save()
-    book=booking.objects.filter(user=user)
-    for b in book:
-        Placed_Booking(user=user,p1_id=b.p1_id,p2_id=b.p2_id,date=b.date,payment=b.payment)
-        b.delete()
-    return redirect("service")    
-
+    book.payment = payment
+    
+    book.save()
+    return render(request,'checkout.html')
