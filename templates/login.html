@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <meta charset="UTF-8">
   <title>Login Page </title>
   <!-- Font Icon -->
@@ -34,7 +36,7 @@
               {% endfor %}
              {% endif %} -->
               
-              <form onsubmit ="return emailValidation()  && passwordValidation()"  action="{% url 'login' %}" method="POST" id="signup-form" class="signup-form">
+              <form onsubmit ="return validatee() && emailValidation()  && passwordValidation()"  action="{% url 'login' %}" method="POST" id="signup-form" class="signup-form">
                 {% include 'alert.html' %}   
                 {% csrf_token %}
                     <h2 class="form-title">Login Here</h2>
@@ -49,6 +51,13 @@
                        <span class="error-msg" id="password"></span><br>
                     </div>
                    
+                <div class="form-group last mb-4">
+                        <div style="margin-left:+0%;">
+                          <div class="g-recaptcha" data-sitekey="6Lcgur8kAAAAAHA-FeFtTT4-KHP0qGBiE_yxToGv"></div>
+          
+                          <div id="g-recaptcha-error"></div>
+                        </div>
+                 </div>
                     
                     <div class="form-group">
                         <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
@@ -68,6 +77,30 @@
 
 </div>
 <script type="text/javascript">
+function validatee() {
+            var pass=document.getElementById('password').value;
+            var email=document.getElementById('email').value;
+            
+            if (grecaptcha.getResponse() == "") {
+
+                document.getElementById('g-recaptcha-error').textContent = "Enter the Captcha";
+                document.getElementById("g-recaptcha-error").style.color = "red";
+                return false;
+            }
+            else if (grecaptcha.getResponse() == "") {
+                alert(response)
+                document.getElementById('g-recaptcha-error').innerHTML =
+                    '<span style="color:red;">This field is required.</span>';
+                return false;
+            } else if(!emailValidation(email)){
+                document.getElementById('email').textContent="please enter the email";
+                document.getElementById('email').style.color="red";
+                return false
+            }
+            else {
+                return true;
+            } 
+        }      
 function emailValidation(inputTxt){
     var regx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     var textField = document.getElementById("email1");
@@ -107,9 +140,12 @@ function passwordValidation(inputTxt){
         textField.style.color = "red";
     }
 }
-</script>
+
+
+     </script>
   
 </body>
 </html>
-{% endblock %}
 
+
+{% endblock %}

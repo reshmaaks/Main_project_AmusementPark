@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
-from .models import Payment, Placed_Booking, Reviews, Rides, amount, booking, Adultpackage, Childpackage
+from .models import Payment, Payments, Placed_Booking, Reviews, Rides, amount, booking, Adultpackage, Childpackage
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from .models import Account
@@ -113,7 +113,7 @@ def change_password(request):
             else:
                  messages.error(request, 'Password does not match!')
                  return redirect('change_password')
-    return render(request, 'change/change_password.html')
+    return render(request, 'change_password.html')
 def forgotPassword(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -129,7 +129,7 @@ def forgotPassword(request):
             send_mail(
                 'Please activate your account',
                 message,
-                'dreamlandpark2705@gmail.com',
+                'amusementpark521@gmail.com',
                 [email],
                 fail_silently=False,
             )
@@ -309,42 +309,117 @@ def Delete(request, id):
 
 class checkout(View):
     def get(self,request):
-        user = request.user
-        data = booking.objects.filter(user=user)
-        if request.method == 'POST':
-            date=request.POST['date']
-            count1=request.POST['count1']
-            count2=request.POST['count2']
-            form = BookForm(request.POST)
-            p1_id = form.cleaned_data['p1_id']
-            p2_id = form.cleaned_data['p2_id']
-            print(int(p2_id.price)*int(count2))
-            user=request.user,
-            date=date,
-            p1_id=p1_id,
-            p2_id=p2_id,
-            total_price=(int(p1_id.price)*int(count1))+(int(p2_id.price)*int(count2))
-            data = { "amount": total_price }
+            user = request.user
+            if request.user.is_authenticated:    
+                obj = booking.objects.filter(user=user)
+                print(8)
             
+                print(9)
+                # date=request['date']
+                # count1=request.POST['count1']
+                # count2=request.POST['count2']
+                # form = BookForm(request.POST)
+                # p1_id = form.cleaned_data['p1_id']
+                # p2_id = form.cleaned_data['p2_id']
+                # print(int(p2_id.price)*int(count2))
+                # user=request.user,
+                # date=date,
+                # p1_id=p1_id,
+                # p2_id=p2_id,
+                # total_price=(int(p1_id.price)*int(count1))+(int(p2_id.price)*int(count2))
                 
-        return render(request, 'checkout.html',{'data':data})  
+                client=razorpay.Client(auth=(settings.RAZORPAY_API_KEY,settings.RAZORPAY_API_SECRET_KEY))
+                data={
+                        'amount':'100',
+                        "currency":"INR",
+                        "receipt":"success",
+                        'payment_capture':1,
+                    
+
+                    }
+                    
+                order=client.order.create(data=data)
+                print(order)
+                context={'result':obj}
+                
+    
+                return render(request, 'checkout.html',context) 
+            
+
+# def payments(request):
+#     body = json.loads(request.body)
+#     print(body)
+#     book = booking.objects.get(
+#         user=request.user, id =body['orderID'])
+#     print(body)
+
+#     payment = Payment(
+#         user=request.user,
+#         payment_id=body['transID'],
+#         payment_method=body['payment_method'],
+#         amount_paid=book.total_price,
+#         status=body['status'],
+#     )
+#     payment.save()
+#     book.payment = payment
+#     book.save()
+#     return render(request,'checkout.html')
+    
+
+def pay(request):
+    return render(request,'status.html')
+
 
 def payments(request):
-    body = json.loads(request.body)
-    print(body)
-    book = booking.objects.get(
-        user=request.user, id =body['orderID'])
-    print(body)
+    if request.method == "POST":
+        # Get payment details from POST request
+        payment_id = request.POST.get('razorpay_payment_id')
+        razorpay_signature = request.POST.get('razorpay_signature')
+        client=razorpay.Client(auth=(settings.RAZORPAY_API_KEY,settings.RAZORPAY_API_SECRET_KEY))
 
-    payment = Payment(
-        user=request.user,
-        payment_id=body['transID'],
-        payment_method=body['payment_method'],
-        amount_paid=book.total_price,
-        status=body['status'],
-    )
-    payment.save()
-    book.payment = payment
-    
-    book.save()
-    return render(request,'checkout.html')
+
+        # Verify the signature
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_payment_id': payment_id,
+                'razorpay_signature': razorpay_signature
+            })
+        except razorpay.errors.SignatureVerificationError as e:
+            # Handle the error
+            return render(request, 'status.html')
+
+        # Fetch payment details using payment ID
+        payment  =   client.payment.fetch(payment_id)
+
+        # Create Payment object and save to database
+        Payments.objects.create(
+            payment_id=payment["id"],
+            amount=payment["amount"],
+            currency=payment["currency"],
+            status=payment["status"],
+            created_at=payment["created_at"]
+        )
+
+        return render(request, 'status.html')
+    else:
+        return render(request, 'status.html')
+
+
+
+
+
+
+# def payments(request):
+#     if request.user.is_authenticated:
+#         user = request.user
+#         obj = booking.objects.filter(user=user)
+#         payment_id=payment["id"],
+
+
+        
+
+
+
+
+
+

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    # 'payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'amusementpark.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ampark',
+        'NAME': 'db',
         'USER':'postgres',
         'PASSWORD':'1234',
         'HOST':'127.0.0.1',
@@ -135,8 +136,8 @@ STATICFILES_ROOT =os.path.join(BASE_DIR,'assets')
 MEDIA_URL='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-# RAZORPAY_API_KEY ='rzp_test_f2cTF5XBel7XdE'
-# RAZORPAY_API_SECRET_KEY='q5EVv91UvQwG167bgMD6txYx'
+RAZORPAY_API_KEY ='rzp_test_d7pbnQ23YtrZat'
+RAZORPAY_API_SECRET_KEY='nJdBKZq0EDSBU926XT1nWIsD'
 
 
 #SMTP Configruation
@@ -144,8 +145,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'dreamlandpark521@gmail.com'
-EMAIL_HOST_PASSWORD = 'unccfiwhkgsaitea'
+EMAIL_HOST_USER = 'amusementpark521@gmail.com'
+EMAIL_HOST_PASSWORD = 'gshmrsioyfyptzty'
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 # EMAIL_HOST_USER = 'ajcehostelmanagement@gmail.com'
 #  EMAIL_HOST_PASSWORD = 'tcqmeyjtbleubsbs'
@@ -155,3 +156,5 @@ EMAIL_HOST_PASSWORD = 'unccfiwhkgsaitea'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STRIPE_SECRET_KEY ='sk_test_51MgJzXSIghh8oLJHFNgAIFoVg5BA32ry2hwAYlNkZ95sKmOHZWGAKhFr46TKPBRfBxRk5h7dlAFOV6l1cNArdjMi00TeFTqxYW'
+STRIPE_PUBLISHABLE_KEY='pk_test_51MgJzXSIghh8oLJH5Sn7tOu3VeOiTEQbmDzQuAyTiNvYKdXa2R7BO8RvZMZghb7QiQGvD6a04z4E4dxYGMrxUk0h00EfLTrCdW'

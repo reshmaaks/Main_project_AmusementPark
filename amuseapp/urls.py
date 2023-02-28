@@ -27,8 +27,5 @@ urlpatterns = [
     path('Delete/<int:id>/',views.Delete,name='Delete'),
     path('checkout/',views.checkout.as_view(),name='checkout'),
     path('payments/',views.payments,name='payments'),
-
-
-
-
+    path('status/',views.pay,name='status'),
 ]

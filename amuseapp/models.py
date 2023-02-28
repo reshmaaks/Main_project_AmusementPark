@@ -146,6 +146,7 @@ class booking(models.Model):
     count_adult=models.BigIntegerField(default=1)
     count_child=models.BigIntegerField(default=1,null=True)
     total_price=models.BigIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     # child_count=models.PositiveIntegerField(default=1)
     # meals_name=models.ForeignKey(package,on_delete=models.CASCADE)
@@ -198,3 +199,10 @@ class Placed_Booking(models.Model):
     #     return self.product.discounted_price
 
 
+class Payments(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE,null=True)
+    # name = models.CharField(max_length=100)
+    amount = models.CharField(max_length=100)
+    order_id = models.CharField(max_length=100, blank=True)
+    razorpay_payment_id = models.CharField(max_length=100, blank=True)
+    paid = models.BooleanField(default=False)
