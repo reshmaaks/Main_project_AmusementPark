@@ -9,9 +9,6 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <meta charset="UTF-8">
   <title>Login Page </title>
-  <!-- Font Icon -->
-<!-- <link rel="stylesheet" href="{% static 'reg/fonts/material-icon/css/material-design-iconic-font.min.css' %}"> -->
-<!-- Main css -->
 <link rel="stylesheet" href="{% static 'reg/css/style.css' %}">
 
 
@@ -23,18 +20,12 @@
        <a href="{% url 'index' %}"  class="nav-link"><b>BACK</b></a>
     </div>
   <div class="main" >
-    <!-- <img src="/static/images/img-4.jpg" alt="">  -->
-    <!-- <section class="signup"> -->
+
      
         <div class="container">
         
             <div class="signup-content">
-              <!-- {% if messages %}
-               {% for msg in messages %}
-               <h3 style="color:rgb(248, 11, 11)"><center>{{msg}}</center></h3>
- 
-              {% endfor %}
-             {% endif %} -->
+            
               
               <form onsubmit ="return validatee() && emailValidation()  && passwordValidation()"  action="{% url 'login' %}" method="POST" id="signup-form" class="signup-form">
                 {% include 'alert.html' %}   
