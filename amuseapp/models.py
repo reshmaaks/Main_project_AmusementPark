@@ -206,3 +206,19 @@ class Payments(models.Model):
     order_id = models.CharField(max_length=100, blank=True)
     razorpay_payment_id = models.CharField(max_length=100, blank=True)
     paid = models.BooleanField(default=False)
+
+
+class food_login(models.Model):
+    user = models.EmailField(max_length=200, unique=True, primary_key=True,default=1)
+    password = models.CharField(max_length=100)
+    type=models.BooleanField(max_length=100,default=False)
+
+
+
+class food_reg(models.Model):
+    fname = models.CharField(max_length=200)
+    lname = models.CharField(max_length=200)
+    phone = models.CharField(max_length=200)
+    user = models.ForeignKey(food_login, on_delete=models.SET_NULL, blank=True, null=True)
+    password = models.CharField(max_length=100)
+   

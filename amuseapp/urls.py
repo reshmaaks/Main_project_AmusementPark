@@ -28,4 +28,12 @@ urlpatterns = [
     path('checkout/',views.checkout.as_view(),name='checkout'),
     path('payments/',views.payments,name='payments'),
     path('status/',views.pay,name='status'),
+    path('foodlogin/', views.foodlogin, name='foodlogin'),
+    path('foodreg/', views.foodreg, name='foodreg'),
+    path('home1/', views.home1, name='home1'),
+    path('foodlogout/',views.foodlogout, name='foodlogout'),
+
+
+
+
 ]

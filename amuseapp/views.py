@@ -1,7 +1,8 @@
+from hashlib import sha256
 import json
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
-from .models import Payment, Payments, Placed_Booking, Reviews, Rides, amount, booking, Adultpackage, Childpackage
+from .models import Payment, Payments, Placed_Booking, Reviews, Rides, amount, booking, Adultpackage, Childpackage, food_login, food_reg
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from .models import Account
@@ -364,10 +365,78 @@ class checkout(View):
 #     book.payment = payment
 #     book.save()
 #     return render(request,'checkout.html')
-    
+
+
+# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
+# def foodlogout(request):
+#     food_login.logout(request)
+#     return redirect('foodlogin')  
+
+def foodlogout(request):
+    if 'email' in request.session:
+        request.session.flush()
+    return redirect(foodlogin)    
 
 def pay(request):
     return render(request,'status.html')
+
+def home1(request):
+    obj=Rides.objects.all()
+    review=Reviews.objects.all()
+    context={'result':obj,'review':review}
+    return render(request,'home1.html',context)    
+def foodreg(request):
+    if request.method == 'POST':
+        fname=request.POST.get('fname')
+        lname=request.POST.get('lname')
+        email=request.POST.get('email')
+        phone=request.POST.get('phone') 
+        pass1=request.POST.get('pass1')
+        pass2=request.POST.get('pass2')
+        passwords=sha256(pass2.encode()).hexdigest()
+       
+
+        if food_login.objects.filter(user=email).exists():
+            messages.success(request, 'Email already exist....!!!!')
+            return redirect('foodreg')    
+        else:
+            log=food_login(user=email,password=passwords)
+            log.save()
+            
+            userid=food_login.objects.get(user=email)
+            reg=food_reg(fname=fname,lname=lname,phone=phone,user_id=userid.user,password=passwords)
+            reg.save()
+            return redirect('foodlogin')
+
+    return render(request,'foodreg.html')
+
+def foodlogin(request):
+    request.session.flush()
+    if 'email' in request.session:
+        return redirect(home1)
+
+    if request.method == 'POST':
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        print(email,password)
+        password2=sha256(password.encode()).hexdigest()
+        print(password2)
+        vol=food_login.objects.filter(user=email,password=password2,type=1)
+        if vol:
+            vol_details=food_login.objects.get(user=email,password=password2)
+            email=vol_details.user
+            request.session['email']=email
+            return redirect('home1')
+        else:
+            print("invalid")
+            messages.success(request,"Invalid login Credentials")
+            return redirect(foodlogin)
+    return render(request,'foodlogin.html')
+
+
+
+
+
 
 
 def payments(request):

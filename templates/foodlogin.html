@@ -1,0 +1,141 @@
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <meta charset="UTF-8">
+  <title>Login Page </title>
+<link rel="stylesheet" href="{% static 'reg/css/style.css' %}">
+
+
+</head>
+<body style= "background-image: url('../static/images/R.jfif');" alt=""> 
+  
+ 
+    <div style="margin-top: -100px;">
+       <a href="{% url 'index' %}"  class="nav-link"><b>BACK</b></a>
+    </div>
+  <div class="main" >
+
+     
+        <div class="container">
+        
+            <div class="signup-content">
+            
+              
+              <form onsubmit ="return validatee() && emailValidation()  && passwordValidation()"  action="{% url 'foodlogin' %}" method="POST" id="signup-form" class="signup-form">
+                {% include 'alert.html' %}   
+                {% csrf_token %}
+                    <h2 class="form-title">Login Here</h2>
+                   
+                  <div class="form-group">
+                        <input type="text" class="form-input" name="email" id="email" placeholder="Enter your email"    class="form-control"  placeholder="Enter your user name" onkeyup='emailValidation(this)'  required/>
+                        <span class="error-msg" id="email1"> </span><br>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-input" name="password" id="pass"  placeholder="Password"  onkeyup='passwordValidation(this)' required/>
+                        
+                       <span class="error-msg" id="password"></span><br>
+                    </div>
+                   
+                <div class="form-group last mb-4">
+                        <div style="margin-left:+0%;">
+                          <div class="g-recaptcha" data-sitekey="6Lcgur8kAAAAAHA-FeFtTT4-KHP0qGBiE_yxToGv"></div>
+          
+                          <div id="g-recaptcha-error"></div>
+                        </div>
+                 </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                    </div>
+                </form>
+                
+                <p >
+                 <b>Create a new account ? </b> <a href="{% url 'foodreg' %}" class="loginhere-link">Register here</a>
+                  </p>
+                  <p>
+                  <a href="/forgotPassword/" class="loginhere-link"> <center> Forget Password </center></a>
+              
+                </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+<script type="text/javascript">
+function validatee() {
+            var pass=document.getElementById('password').value;
+            var email=document.getElementById('email').value;
+            
+            if (grecaptcha.getResponse() == "") {
+
+                document.getElementById('g-recaptcha-error').textContent = "Enter the Captcha";
+                document.getElementById("g-recaptcha-error").style.color = "red";
+                return false;
+            }
+            else if (grecaptcha.getResponse() == "") {
+                alert(response)
+                document.getElementById('g-recaptcha-error').innerHTML =
+                    '<span style="color:red;">This field is required.</span>';
+                return false;
+            } else if(!emailValidation(email)){
+                document.getElementById('email').textContent="please enter the email";
+                document.getElementById('email').style.color="red";
+                return false
+            }
+            else {
+                return true;
+            } 
+        }      
+function emailValidation(inputTxt){
+    var regx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    var textField = document.getElementById("email1");
+
+    if(inputTxt.value != '' ){
+        if(inputTxt.value.match(regx)){
+            textField.textContent = '';
+            textField.style.color = "green";
+        }else{
+            textField.textContent = 'email is not valid!!!';
+            textField.style.color = "red";
+        }
+    }else{
+        textField.textContent = 'your input is empty';
+        textField.style.color = "red";
+    }
+}
+
+
+ 
+function passwordValidation(inputTxt){
+    
+    var regx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    var textField = document.getElementById("password");
+
+    if(inputTxt.value != '' ){
+            if(inputTxt.value.match(regx)){
+                textField.textContent = '';
+                textField.style.color = "green";
+
+            }else{
+                textField.textContent = 'Must contain at least one number and one uppercase and lowercase letter and aleast 5 characters';
+                textField.style.color = "red";
+            }
+    }else{
+        textField.textContent = 'your input is empty';
+        textField.style.color = "red";
+    }
+}
+
+
+     </script>
+  
+</body>
+</html>
+
+

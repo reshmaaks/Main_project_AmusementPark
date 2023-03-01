@@ -208,7 +208,6 @@
 	          <li class="nav-item"><a href="{% url 'bookticket' %}" class="nav-link">Ticket Pricing</a></li>
 
 	          
-	          <!-- <li class="nav-item"><a href="blog-single.html" class="nav-link">Blog</a></li> -->
 	          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
 			 
          
@@ -224,7 +223,19 @@
 			</li>
 
 			{% else %}
-			<li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+      <!-- <li class="nav-item dropdown">
+			<li class="nav-item">
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+          <a class="dropdown-item" href= "{% url 'profile' %}"><i class='fas fa-user-circle' style='font-size:20px'></i> Profile</a>
+					<a class="dropdown-item" href="{% url 'booknow' %}"><i class='fas fa-shopping-bag' style='font-size:20px'></i> Book now</a>
+        </li> -->
+
+         <li class="nav-item dropdown">
+           <a href="#" class="nav-link">Login</a></a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href= "{% url 'login' %}"><i class='fas fa-user-circle' style='font-size:20px'></i> As Customer</a>
+            <a class="dropdown-item" href="{% url 'foodlogin' %}"><i class='fas fa-shopping-bag' style='font-size:20px'></i> As FoodCourt</a>
+        </li> 
 			{% endif %}
 
 

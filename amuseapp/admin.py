@@ -20,10 +20,39 @@ admin.site.register(booking)
 admin.site.register(amount)
 admin.site.register(Payment)
 admin.site.register(Placed_Booking)
+# admin.site.register(food_login)
+
 
 
 admin.site.unregister(Group)
 
+class foodAdmin(admin.ModelAdmin):
+    list_display=['fname']
+    exclude=('password',)
+    def has_add_permission(self, request, obj=None):
+        return False
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+    verbose_name_plural = "Volunteers Details"
+admin.site.register(food_reg,foodAdmin)
+
+
+
+class VolunteerLoginAdmin(admin.ModelAdmin):
+    list_display=['user']
+    exclude=('password',)
+    def has_add_permission(self, request, obj=None):
+        return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+    verbose_name_plural = "Volunteer Login Details"
+admin.site.register(food_login,VolunteerLoginAdmin)
 
 
 
